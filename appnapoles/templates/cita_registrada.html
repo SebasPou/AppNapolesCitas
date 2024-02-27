@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbería Nápoles</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'principal.css' %}">
+</head>
+<body>
+
+<div class="colores_ecuador" style="height: 10px;display: flex;">
+	<div class="amarillo" style="width: 50%;height: 100%; background: #efb810"></div>
+	<div class="azul" style="width: 25%;height: 100%; background: #32659b"></div>
+	<div class="rojo" style="width: 25%;height: 100%; background: #ca3737"></div>
+</div>
+<div class="layer layer_dark" style="background: #111;padding: 1em 0;">
+	<section id="nosotros">
+	    <p class="bigText">Hola {{ nombres }}, tu cita ha sido registrada</p>
+	</section>
+</div>
+<div class="colores_ecuador" style="height: 10px;display: flex;">
+	<div class="amarillo" style="width: 50%;height: 100%; background: #efb810"></div>
+	<div class="azul" style="width: 25%;height: 100%; background: #32659b"></div>
+	<div class="rojo" style="width: 25%;height: 100%; background: #ca3737"></div>
+	
+</div>
+
+<footer>
+    <p>&copy; 2024 Barbería Nápoles. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>

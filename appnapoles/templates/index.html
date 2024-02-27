@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbería Nápoles</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'principal.css' %}">
+</head>
+<body>
+
+<div class="colores_ecuador" style="height: 10px;display: flex;">
+	<div class="amarillo" style="width: 50%;height: 100%; background: #efb810"></div>
+	<div class="azul" style="width: 25%;height: 100%; background: #32659b"></div>
+	<div class="rojo" style="width: 25%;height: 100%; background: #ca3737"></div>
+</div>
+<div class="layer layer_dark" style="background: #111;padding: 1em 0;">
+	<section id="nosotros">
+	    <p class="bigText">En Barbería y Estética Nápoles, donde la elegancia y la tradición se encuentran</p>
+	</section>
+</div>
+<div class="colores_ecuador" style="height: 10px;display: flex;">
+	<div class="amarillo" style="width: 50%;height: 100%; background: #efb810"></div>
+	<div class="azul" style="width: 25%;height: 100%; background: #32659b"></div>
+	<div class="rojo" style="width: 25%;height: 100%; background: #ca3737"></div>
+</div>
+
+<header id="hero" style="padding: 5em 2em">
+	
+	<section class="hero-content">
+        <h1>Visítanos en nuestros locales</h1>
+        
+		<div class="locales">
+
+            {% for local in locales %}
+                <div class="local">
+                    <p class="title">{{ local.nombre }}</p>
+                    <p class="direccion">{{ local.direccion }}</p>
+                    <iframe src="{{ local.coordenadas }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            {% endfor %}
+	    </div>
+
+    </section>
+
+	<section id="reservar">
+		<h2>Reservar Cita</h2>
+		<form id="booking-form" method="POST" action="{% url 'guardar_cita' %}" onsubmit="return validarFormulario()">
+			{% csrf_token %}
+			<label for="nombre">Nombre:</label>
+			<input type="text" id="nombre" name="nombres" required>
+			<label for="cedula">Cédula:</label>
+			<input type="text" id="cedula" name="cedula" required>
+			<label for="local">Elige un local:</label>
+			<select id="local_id" name="local_id">
+				{% for local in locales %}
+					<option value="{{ local.id }}">{{ local.nombre }}</option>
+				{% endfor %}
+			</select>
+			<label for="telefono">Número de WhatsApp:</label>
+			<input type="tel" id="telefono" name="telefono" required>
+			<label for="fecha">Fecha:</label>
+			<input type="date" id="fecha" name="fecha" required>
+			<label for="hora">Hora:</label>
+			<input type="time" id="hora" name="hora" required>
+			
+
+			<button type="submit" class="btn">Reservar</button>
+		</form>
+	</section>
+	
+	<script>
+		function validarFormulario() {
+			// Validar cédula ecuatoriana
+			var cedula = document.getElementById("cedula").value;
+			if (cedula.length != 10) {
+				alert("La cédula debe tener 10 dígitos.");
+				return false;
+			}
+	
+			// Validar número de teléfono
+			var telefono = document.getElementById("telefono").value;
+			if (telefono.length != 10) {
+				alert("El número de teléfono debe tener 10 dígitos.");
+				return false;
+			}
+	
+			
+	
+			return true;
+		}
+	</script>
+
+</header>
+
+<div class="layer" style="padding: 0;">
+
+	<section id="consultar">
+	    <h2>Consultar estado de Reservación</h2>
+        <p>Ingresa tu número de cédula para consultar el estado de su reserva</p>
+
+        <form id="booking-form" method="POST" action="{% url 'consultar_cita' %}">
+            {% csrf_token %}
+            <input type="text" name="cedula">
+            <button type="submit" class="btn">Consultar</button>
+        </form>
+    </section>
+
+</div>
+
+<div class="layer">
+	<section id="servicios">
+	    <h2>Servicios más populares</h2>
+	    <div class="listados">
+			<div class="list_servicios servicios-hombres">
+			    <h2>Servicios para Hombres</h2>
+			    <div class="items">
+			        <div class="servicio">Corte de pelo masculino</div>
+			        <div class="precio">$5 - $10</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Afeitado clásico</div>
+			        <div class="precio">$8 - $15</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Cuidado de la barba</div>
+			        <div class="precio">$3 - $10</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Tratamientos faciales</div>
+			        <div class="precio">$10 - $20</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Depilación facial</div>
+			        <div class="precio">$3 - $8</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Depilación corporal</div>
+			        <div class="precio">$8 - $20</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Coloración capilar</div>
+			        <div class="precio">$15 - $30</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Masaje capilar</div>
+			        <div class="precio">$8 - $15</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Tratamientos de spa para hombres</div>
+			        <div class="precio">$15 - $40</div>
+			    </div>
+			</div>
+
+			<div class="list_servicios servicios-mujeres">
+			    <h2>Servicios para Mujeres</h2>
+			    <div class="items">
+			        <div class="servicio">Corte de pelo femenino</div>
+			        <div class="precio">$10 - $20</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Peinados para eventos</div>
+			        <div class="precio">$15 - $30</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Coloración capilar</div>
+			        <div class="precio">$20 - $40</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Tratamientos faciales</div>
+			        <div class="precio">$15 - $30</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Depilación corporal</div>
+			        <div class="precio">$10 - $25</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Manicura</div>
+			        <div class="precio">$5 - $15</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Pedicura</div>
+			        <div class="precio">$10 - $20</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Maquillaje</div>
+			        <div class="precio">$15 - $25</div>
+			    </div>
+			    <div class="items">
+			        <div class="servicio">Tratamientos de spa para mujeres</div>
+			        <div class="precio">$25 - $50</div>
+			    </div>
+			</div>
+	    </div>
+	</section>
+</div>
+
+<div class="layer layer_dark">
+	<section id="contacto">
+	    <h2>Contacto y Redes sociales</h2>
+		<p>- Información de contacto en Desarrollo - </p>
+		<p>- Información de contacto en Desarrollo - </p>
+		<p>- Información de contacto en Desarrollo - </p>
+		<p>- Información de contacto en Desarrollo - </p>
+	</section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Barbería Nápoles. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
